@@ -1,0 +1,91 @@
+import BookStore_Database as n
+def insert():
+    w=[e1.get(),e2.get(),e3.get(),e4.get()]
+    l.insert(END,w)
+    n.insertdb(e1.get(),e2.get(),e3.get(),e4.get())
+    e1.delete(0,END)
+    e2.delete(0,END)
+    e3.delete(0,END)
+    e4.delete(0,END)
+def delete():
+    s=l.curselection()
+    a=l.index(s)
+    b=l.get(a)
+    c=b[0]
+    l.delete(s)
+    print(a)
+    print(b)
+    print(c)
+    n.deletedb(c)
+    e1.delete(0,END)
+    e2.delete(0,END)
+    e3.delete(0,END)
+    e4.delete(0,END)
+def update():
+    s=l.curselection()
+    n.updatedb(e1.get(),e2.get(),e3.get(),e4.get())
+    l.delete(s)
+    w=[e1.get(),e2.get(),e3.get(),e4.get()]
+    l.insert(s,w)
+    e1.delete(0,END)
+    e2.delete(0,END)
+    e3.delete(0,END)
+    e4.delete(0,END)
+def view():
+    l.delete(0,END)
+    x=n.viewdb()
+    for item in x:
+        l.insert(END,item)
+def search():
+    x=n.searchdb(e1.get(),e2.get(),e3.get(),e4.get())
+    e1.delete(0,END)
+    e2.delete(0,END)
+    e3.delete(0,END)
+    e4.delete(0,END) 
+    e1.insert(END,x[1])
+    e2.insert(END,x[2])
+    e3.insert(END,x[3])
+    e4.insert(END,x[4]) 
+    
+from tkinter import *
+windows=Tk()
+Frame1 = Frame(windows)
+Frame1.pack( side = TOP )
+l1=Label(Frame1,text=' Title')
+l1.pack(side=LEFT)
+e1=Entry(Frame1)
+e1.pack(side=LEFT)
+l2=Label(Frame1,text='Author')
+l2.pack(side=LEFT)
+e2=Entry(Frame1)
+e2.pack(side=LEFT)
+
+Frame2 = Frame(windows)
+Frame2.pack( side = TOP )
+l3=Label(Frame2,text='Year')
+l3.pack(side=LEFT)
+e3=Entry(Frame2)
+e3.pack(side=LEFT)
+l4=Label(Frame2,text='ISBN    ')
+l4.pack(side=LEFT)
+e4=Entry(Frame2)
+e4.pack(side=LEFT)
+
+l= Listbox(windows,width=30)
+l.pack( side = LEFT, fill = BOTH )
+    
+Frame3 = Frame(windows)
+Frame3.pack( side = RIGHT )
+b1=Button(Frame3,text='View All',command=view,width=15)
+b1.pack(side=TOP)
+b2=Button(Frame3,text='Search Entry',command=search,width=15)
+b2.pack(side=TOP)
+b3=Button(Frame3,text='Add Entry',command=insert,width=15)
+b3.pack(side=TOP)
+b4=Button(Frame3,text='Update Selected',command=update,width=15)
+b4.pack(side=TOP)
+b5=Button(Frame3,text='Delete Selected',command=delete,width=15)
+b5.pack(side=TOP)
+
+
+windows.mainloop()
